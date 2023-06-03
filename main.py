@@ -14,14 +14,14 @@ class TimeSlot(customtkinter.CTkFrame):
     def init_hv_title(self) -> None:
         """Brute force plotting title (pending optimization)"""
         # Horizontal Title
-        self.h_title = customtkinter.CTkLabel(master=self, text=f"{' ' * 12}Mon{' ' * 20}Tue{' ' * 20}Wed{' ' * 20}Thu{' ' * 20}Fri{' ' * 8}", font=("Arial", 18))
+        self.h_title = customtkinter.CTkLabel(master=self, text=f"{' ' * 19}Mon{' ' * 13}Tue{' ' * 13}Wed{' ' * 13}Thu{' ' * 14}Fri{' ' * 14}", font=("Arial", 18))
         self.h_title.grid(row=0, column=0, padx=10, pady=10)
 
         # Vertical Title
         self.v_title = customtkinter.CTkFrame(self, width=20, corner_radius=0, fg_color='transparent')
         # Show fg color for debugging
         self.v_title = customtkinter.CTkFrame(self, width=20, corner_radius=0)
-        self.v_title.grid(row=1, column=0, sticky="w", padx=10, pady=(0,10))
+        self.v_title.grid(row=1, column=0, sticky="w", padx=(15,0), pady=(0,15))
 
         self.v_titles = []
         for i in range(13):
@@ -41,7 +41,39 @@ class TimeSlot(customtkinter.CTkFrame):
             cur_vt.grid(row=i, column=0, padx=10, pady=8)
 
     def init_buttons(self) -> None:
-        pass
+        self.buttons_grid = customtkinter.CTkFrame(self, width=20, corner_radius=10)
+        self.buttons_grid.grid(row=1, column=0, sticky="ne", padx=(0,15), pady=(0,15))
+        # (pending discussion) color
+        button_border_color = "black"
+        noon_abc_border_color = "gray"
+        button_hover_color = "#AAFEC2"
+        button_selected_color = "#05AE60"
+        for i in range(13):
+            for j in range(5):
+                if i == 4 or i == 9 or i == 10 or i == 11 or i == 12:
+                    self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color=noon_abc_border_color, border_width=1, hover_color=button_hover_color, corner_radius=0, height=43.5, width=100)
+                else:
+                    self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color=button_border_color, border_width=1.3, hover_color=button_hover_color, corner_radius=0, height=43.5, width=100)
+
+                button_padx = self.get_button_padx(col=j)
+                button_pady = self.get_button_pady(row=i)
+                
+                self.string_input_button.grid(row=i, column=j, padx=button_padx, pady=button_pady)
+    
+    @staticmethod
+    def get_button_padx(col: int)->tuple|int:
+        if col == 0:
+            return (20, 0)
+        if col == 4:
+            return (0, 20)
+        return 0
+    @staticmethod
+    def get_button_pady(row: int)->tuple|int:
+        if row == 0:
+            return (10, 0)
+        if row == 12:
+            return (0, 10)
+        return 0
 
 class Tabview(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -88,11 +120,11 @@ class App(customtkinter.CTk):
 
         # configure window
         self.title("nthu-course-filter")
-        self.geometry(f"{1100}x{670}")
+        self.geometry(f"{1100}x{700}")
         
         # Time slot
         self.time_slot = TimeSlot(master=self)
-        self.time_slot.grid(row=0, column=1, pady=20, sticky='n')
+        self.time_slot.grid(row=0, column=1, padx=20, pady=20, sticky='n')
 
         # Searching tabview
         self.time_slot = Tabview(master=self)
