@@ -14,7 +14,7 @@ class TimeSlot(customtkinter.CTkFrame):
     def init_hv_title(self) -> None:
         """Brute force plotting title (pending optimization)"""
         # Horizontal Title
-        self.h_title = customtkinter.CTkLabel(master=self, text=f"{' ' * 20}Mon{' ' * 15}Tue{' ' * 14}Wed{' ' * 14}Thu{' ' * 15}Fri{' ' * 15}", font=("Arial", 18))
+        self.h_title = customtkinter.CTkLabel(master=self, text=f"{' ' * 19}Mon{' ' * 13}Tue{' ' * 13}Wed{' ' * 13}Thu{' ' * 14}Fri{' ' * 14}", font=("Arial", 18))
         self.h_title.grid(row=0, column=0, padx=10, pady=10)
 
         # Vertical Title
@@ -120,7 +120,7 @@ class App(customtkinter.CTk):
 
         # configure window
         self.title("nthu-course-filter")
-        self.geometry(f"{1100}x{680}")
+        self.geometry(f"{1100}x{700}")
         
         # Time slot
         self.time_slot = TimeSlot(master=self)
