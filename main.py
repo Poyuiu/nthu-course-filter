@@ -41,7 +41,12 @@ class TimeSlot(customtkinter.CTkFrame):
             cur_vt.grid(row=i, column=0, padx=10, pady=8)
 
     def init_buttons(self) -> None:
-        pass
+        self.buttons_grid = customtkinter.CTkFrame(self, width=20, corner_radius=10)
+        self.buttons_grid.grid(row=1, column=0, sticky="n", padx=10, pady=(0,10))
+        self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color="green", border_width=2, hover_color="green")
+        self.string_input_button.grid(row=0, column=0, padx=20, pady=(10, 10))
+        self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color="green", border_width=2, hover_color="green")
+        self.string_input_button.grid(row=1, column=1, padx=20, pady=(10, 10))
 
 class Tabview(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
