@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
+from functools import partial
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -43,22 +44,30 @@ class TimeSlot(customtkinter.CTkFrame):
     def init_buttons(self) -> None:
         self.buttons_grid = customtkinter.CTkFrame(self, width=20, corner_radius=10)
         self.buttons_grid.grid(row=1, column=0, sticky="ne", padx=(0,15), pady=(0,15))
+
         # (pending discussion) color
-        button_border_color = "black"
-        noon_abc_border_color = "gray"
+        general_border_color = "gray"
+        noon_border_color = "#f0f100"
+        abc_border_color = "#02dafd"
         button_hover_color = "#AAFEC2"
-        button_selected_color = "#05AE60"
+
+        self.button_instances = [[None] * 13 for _ in range(5)]
+        self.button_states = [[False] * 13 for _ in range(5)]
         for i in range(13):
             for j in range(5):
-                if i == 4 or i == 9 or i == 10 or i == 11 or i == 12:
-                    self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color=noon_abc_border_color, border_width=1, hover_color=button_hover_color, corner_radius=0, height=43.5, width=100)
+                if i >= 9:
+                    button_border_color = abc_border_color
+                elif i == 4:
+                    button_border_color = noon_border_color
                 else:
-                    self.string_input_button = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color=button_border_color, border_width=1.3, hover_color=button_hover_color, corner_radius=0, height=43.5, width=100)
+                    button_border_color = general_border_color
 
                 button_padx = self.get_button_padx(col=j)
                 button_pady = self.get_button_pady(row=i)
-                
-                self.string_input_button.grid(row=i, column=j, padx=button_padx, pady=button_pady)
+
+                button_command = partial(self.switch_button_state, j, i)
+                self.button_instances[j][i] = customtkinter.CTkButton(master=self.buttons_grid, text="",fg_color="transparent", border_color=button_border_color, border_width=1.3, hover_color=button_hover_color, corner_radius=0, height=43.5, width=100, command=button_command)
+                self.button_instances[j][i].grid(row=i, column=j, padx=button_padx, pady=button_pady)
     
     @staticmethod
     def get_button_padx(col: int)->tuple|int:
@@ -67,6 +76,7 @@ class TimeSlot(customtkinter.CTkFrame):
         if col == 4:
             return (0, 20)
         return 0
+    
     @staticmethod
     def get_button_pady(row: int)->tuple|int:
         if row == 0:
@@ -74,6 +84,13 @@ class TimeSlot(customtkinter.CTkFrame):
         if row == 12:
             return (0, 10)
         return 0
+
+    def switch_button_state(self, j:int, i:int)->None:
+        self.button_states[j][i] = not self.button_states[j][i]
+        if self.button_states[j][i]:
+            self.button_instances[j][i].configure(fg_color="#05AE60")
+        else:
+            self.button_instances[j][i].configure(fg_color="transparent")
 
 class Tabview(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
