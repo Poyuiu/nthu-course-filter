@@ -93,8 +93,6 @@ def select(target: dict = {}, strict: bool = False):
         if flag1 and flag2 and flag3:
             series_ls.append(item)
 
-        # get_loc_time(item)
-        
     return pd.DataFrame(series_ls)
 
 
