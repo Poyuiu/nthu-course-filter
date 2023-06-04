@@ -46,7 +46,7 @@ def select(target: dict = {}, strict: bool = False):
 
     return value type : pandas.DataFrame
     '''
-
+    print(f'strict: {strict}, conditions: {target}')
     series_ls = []
     for _, item in df.iterrows():
         flag1 = False  # for time

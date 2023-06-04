@@ -20,10 +20,6 @@ class App(customtkinter.CTk):
         self.title("nthu-course-filter")
         self.geometry(f"{1300}x{700}")
         
-        # left Side bar
-        self.sidebar_frame = LeftSideBar(master=self)
-        self.sidebar_frame.grid(row=0, column=0, pady=(20,20), rowspan=4, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(4, weight=1)
 
         # Textbox
         self.result_frame = Result(master=self)
@@ -33,6 +29,10 @@ class App(customtkinter.CTk):
         self.time_slot = TimeSlot(master=self, result_frame=self.result_frame)
         self.time_slot.grid(row=0, column=1, padx=20, pady=20, sticky='n')
 
+        # left Side bar
+        self.sidebar_frame = LeftSideBar(master=self, result_frame=self.result_frame)
+        self.sidebar_frame.grid(row=0, column=0, pady=(20,20), rowspan=4, sticky="nsew")
+        self.sidebar_frame.grid_rowconfigure(4, weight=1)
         
 
     def open_input_dialog_event(self):

@@ -1,13 +1,14 @@
 import customtkinter
 from checkboxfilter import CheckBoxFilter
 import pandas as pd
-
+import copy
 import final
 
 
 class Result(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
+        self.final_condition = {"time":[], "loc":[], "dep":[]}
         # customtkinter.CTkTextbox(master=self, width=250)
         self.frame = customtkinter.CTkFrame(self, corner_radius=0)
         self.frame.grid(row=0, column=0, padx=20)
@@ -32,11 +33,25 @@ class Result(customtkinter.CTkFrame):
             sticky="nsew",
         )
         self.textbox.insert("0.0", "No courses available.")
+    
+    def rm_null_key(self, raw_condition) -> dict:
+        ''' Remove all keys with value: empty list, making the select function work correctly '''
 
+        for key,val in raw_condition.copy().items():
+            if val==[] or val==['']:
+                raw_condition.pop(key)
+        return raw_condition
+        
     def change_filtered_result(self, filtered_result: dict, strict=False) -> None:
-        # TODO: complete showing
+        # TODO: complete showing        
+        for key in self.final_condition.keys():
+            try:
+                self.final_condition[key] = filtered_result[key]
+            except KeyError:
+                continue
+        
         res = final.select(
-            filtered_result,
+            self.rm_null_key(copy.deepcopy(self.final_condition)),
             strict=strict,
         )
         self.textbox.delete("0.0", "end")

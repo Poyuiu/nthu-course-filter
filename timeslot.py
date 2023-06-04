@@ -141,7 +141,7 @@ class TimeSlot(customtkinter.CTkFrame):
         else:
             self.button_instances[j][i].configure(fg_color="transparent")
             self.condition["time"].remove(self.get_time_string(j=j, i=i))
-        print(self.condition)
+        # print(self.condition)
         self.result_frame.change_filtered_result(
             filtered_result=self.condition, strict=True
         )
