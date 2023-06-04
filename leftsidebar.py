@@ -5,7 +5,7 @@ from checkboxfilter import CheckBoxFilter
 class LeftSideBar(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
-        customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        # customtkinter.CTkFrame(self, width=140, corner_radius=0)
         # Searching tabview
         self.search_tab = Tabview(master=self)
         self.search_tab.grid(row=0, column=0, sticky='n')
