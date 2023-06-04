@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-from final import select
+# from final import select
 from timeslot import TimeSlot
 from leftsidebar import LeftSideBar
 from tabview import Tabview

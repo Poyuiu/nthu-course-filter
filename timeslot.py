@@ -5,6 +5,7 @@ from functools import partial
 class TimeSlot(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
+        self.condition = {"time": [], "loc": [], "dep": []}
         self.init_hv_title()
         self.init_buttons()
 
@@ -102,9 +103,38 @@ class TimeSlot(customtkinter.CTkFrame):
             return (0, 10)
         return 0
 
+    @staticmethod
+    def get_time_string(j: int, i: int) -> str:
+        day_dict = {
+            0: "M",
+            1: "T",
+            2: "W",
+            3: "R",
+            4: "F",
+        }
+        class_dict = {
+            0: "1",
+            1: "2",
+            2: "3",
+            3: "4",
+            4: "n",
+            5: "5",
+            6: "6",
+            7: "7",
+            8: "8",
+            9: "a",
+            10: "b",
+            11: "c",
+        }
+        return f"{day_dict[j]}{class_dict[i]}"
+
     def switch_button_state(self, j: int, i: int) -> None:
         self.button_states[j][i] = not self.button_states[j][i]
         if self.button_states[j][i]:
             self.button_instances[j][i].configure(fg_color="#05AE60")
+            self.condition["time"].append(self.get_time_string(j=j, i=i))
         else:
             self.button_instances[j][i].configure(fg_color="transparent")
+            self.condition["time"].remove(self.get_time_string(j=j, i=i))
+        # TODO: call textview update
+        print(self.condition)
