@@ -1,11 +1,15 @@
 import customtkinter
 from functools import partial
+from filterresult import Result
 
 
 class TimeSlot(customtkinter.CTkFrame):
-    def __init__(self, master, **kwargs):
+    def __init__(self, master, result_frame, **kwargs):
         super().__init__(master, **kwargs)
-        self.condition = {"time": [], "loc": [], "dep": []}
+        self.condition = {
+            "time": [],
+        }
+        self.result_frame = result_frame
         self.init_hv_title()
         self.init_buttons()
 
@@ -122,9 +126,10 @@ class TimeSlot(customtkinter.CTkFrame):
             6: "6",
             7: "7",
             8: "8",
-            9: "a",
-            10: "b",
-            11: "c",
+            9: "9",
+            10: "a",
+            11: "b",
+            12: "c",
         }
         return f"{day_dict[j]}{class_dict[i]}"
 
@@ -136,5 +141,7 @@ class TimeSlot(customtkinter.CTkFrame):
         else:
             self.button_instances[j][i].configure(fg_color="transparent")
             self.condition["time"].remove(self.get_time_string(j=j, i=i))
-        # TODO: call textview update
         print(self.condition)
+        self.result_frame.change_filtered_result(
+            filtered_result=self.condition, strict=True
+        )

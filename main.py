@@ -25,13 +25,14 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid(row=0, column=0, pady=(20,20), rowspan=4, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
 
-        # Time slot
-        self.time_slot = TimeSlot(master=self)
-        self.time_slot.grid(row=0, column=1, padx=20, pady=20, sticky='n')
-
         # Textbox
         self.result_frame = Result(master=self)
         self.result_frame.grid(row=0, column=2, padx=(0, 0), pady=20, sticky="nsew")
+        
+        # Time slot
+        self.time_slot = TimeSlot(master=self, result_frame=self.result_frame)
+        self.time_slot.grid(row=0, column=1, padx=20, pady=20, sticky='n')
+
         
 
     def open_input_dialog_event(self):
