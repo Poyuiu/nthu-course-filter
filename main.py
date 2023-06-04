@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-
+from final import select
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
@@ -95,13 +95,13 @@ class Tabview(customtkinter.CTkFrame):
         self.label_major = customtkinter.CTkLabel(self.tabview.tab("major"), text="Choose major below")
         self.label_major.grid(row=0, column=0, padx=20, pady=20)
         self.major_combobox = customtkinter.CTkComboBox(self.tabview.tab("major"),
-                                                    values=["請選擇...", "資工", "電機", "物理", "..."])
+                                                    values=["", "AES", "AIIM", "CS", "CSR"])
         self.major_combobox.grid(row=1, column=0, padx=20, pady=(10, 10))
         # searching UI: location
         self.label_location = customtkinter.CTkLabel(self.tabview.tab("location"), text="Choose location below")
         self.label_location.grid(row=0, column=0, padx=20, pady=20)
         self.location_combobox = customtkinter.CTkComboBox(self.tabview.tab("location"),
-                                                    values=["請選擇...", "台達", "資電", "人社", "..."])
+                                                    values=[ "", "GEN I", "DELTA", "HSS", "Nanda" ] )
         self.location_combobox.grid(row=1, column=0, padx=20, pady=(10, 10))
 
         # searching UI: Time
@@ -114,6 +114,11 @@ class Tabview(customtkinter.CTkFrame):
 
     def searching(self) -> None:
         print("searching, Nothing so far...")
+
+class LeftSideBar(customtkinter.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        customtkinter.CTkFrame(self, width=140, corner_radius=0)
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -126,11 +131,16 @@ class App(customtkinter.CTk):
         self.time_slot = TimeSlot(master=self)
         self.time_slot.grid(row=0, column=1, padx=20, pady=20, sticky='n')
 
+
+        # left Side bar
+        self.sidebar_frame = LeftSideBar(master=self)
+        self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
+        self.sidebar_frame.grid_rowconfigure(4, weight=1)
+        
         # Searching tabview
         self.time_slot = Tabview(master=self)
         self.time_slot.grid(row=0, column=0, pady=20, sticky='n')
 
-        
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
