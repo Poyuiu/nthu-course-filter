@@ -12,7 +12,7 @@ class LeftSideBar(customtkinter.CTkFrame):
         self.search_tab.grid(row=0, column=0, sticky='n')
 
         # result filter
-        self.result_filter = CheckBoxFilter(master = self)
+        self.result_filter = CheckBoxFilter(master = self, result_frame=result_frame)
         self.result_filter.grid(row=1, column=0, pady=0, sticky='n')
 
         # appearance mode

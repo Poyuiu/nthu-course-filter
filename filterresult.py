@@ -9,6 +9,7 @@ class Result(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.final_condition = {"time":[], "loc":[], "dep":[]}
+        self.final_checkbox = {"cid": False, "loc": False, "tch": False, "t": False}
         # customtkinter.CTkTextbox(master=self, width=250)
         self.frame = customtkinter.CTkFrame(self, corner_radius=0)
         self.frame.grid(row=0, column=0, padx=20)
@@ -42,14 +43,24 @@ class Result(customtkinter.CTkFrame):
                 raw_condition.pop(key)
         return raw_condition
 
-    def change_filtered_result(self, filtered_result: dict, strict=False) -> None:
+    def change_filtered_result(self, filtered_result=None, checkbox_filter = None, strict=False) -> None:
+        if filtered_result == None:
+            filtered_result = self.final_condition
+        if checkbox_filter == None:
+            checkbox_filter = self.final_checkbox
         # TODO: complete showing        
         for key in self.final_condition.keys():
             try:
                 self.final_condition[key] = filtered_result[key]
             except KeyError:
                 continue
-        
+
+        for key in self.final_checkbox.keys():
+            try:
+                self.final_checkbox[key] = checkbox_filter[key]
+            except KeyError:
+                continue
+        # print(checkbox_filter)
         res = final.select(
             self.rm_null_key(copy.deepcopy(self.final_condition)),
             strict=strict,
@@ -81,9 +92,12 @@ class Result(customtkinter.CTkFrame):
             tmp = [item.split('\n')[0] for item in list(res["授課教師"])]
             TeacherList = [item.split('\t')[0] for item in tmp]
 
-            for t,n, cid, tch, loc in zip(TimeList, NameList, CourseIDList, TeacherList, LocList, strict=True):
-                available_courses += f'{cid}\n{n} {tch}\n{t} {loc}\n\n'
-
+            for t,name, cid, tch, loc in zip(TimeList, NameList, CourseIDList, TeacherList, LocList, strict=True):
+                available_courses += \
+                                    f'{cid if self.final_checkbox["cid"] else ""}' + '\n' + \
+                                    f'{name} {tch if self.final_checkbox["tch"] else ""}' + '\n'+\
+                                    f'{t if self.final_checkbox["t"] else ""}' + \
+                                    f'{loc if self.final_checkbox["loc"] else ""}' + '\n\n'
         except Exception as e:
             available_courses = "No courses available."
             

@@ -55,28 +55,26 @@ class Tabview(customtkinter.CTkFrame):
         self.label_time.grid(row=0, column=0, padx=10, pady=10)
         
         # search button
-        self.search_button = customtkinter.CTkButton(self.tabview, 
-                                                    text="Search", 
-                                                    command=self.searching)
-        self.search_button.grid(row=4, column=0, padx=10, pady=10)
+        # self.search_button = customtkinter.CTkButton(self.tabview, 
+        #                                             text="Search", 
+        #                                             command=self.searching)
+        # self.search_button.grid(row=4, column=0, padx=10, pady=10)
 
 
     def searching(self) -> None:
-        # print("searching, Nothing so far...")
-        # self.result_frame.change_filtered_result()
-        # for key, val in copy.deepcopy(self.condition).items():
         for key, val in self.condition.copy().items():
             if val==[]:
                 self.condition.pop(key)
-        # print(f'condition after rm []: {self.condition}')
         self.result_frame.change_filtered_result(filtered_result = self.condition, strict=True)
 
     def setLoc(self, newLoc: str):
         tmplist = newLoc.split(' ')
         tmplist.pop()
         self.condition["loc"] = [' '.join(tmplist)]
+        self.searching()
         # print(self.condition)
 
     def setDepartment(self, newDep: str):
         self.condition["dep"] = [newDep.split(' ')[0]]
+        self.searching()
         # print(self.condition)
