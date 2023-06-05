@@ -134,3 +134,6 @@ if __name__ == "__main__":
     temp = select({"time": ["T3", "T4", "R3", "R4"],
                   "dep": ['CHE', 'CHEM']}, strict=True)
     temp.to_csv('./out10.csv')
+
+    temp = select({"dep": ['CS']}, strict=True)
+    temp.to_csv('./out11.csv')

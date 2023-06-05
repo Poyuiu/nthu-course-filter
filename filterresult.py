@@ -41,7 +41,7 @@ class Result(customtkinter.CTkFrame):
             if val==[] or val==['']:
                 raw_condition.pop(key)
         return raw_condition
-        
+
     def change_filtered_result(self, filtered_result: dict, strict=False) -> None:
         # TODO: complete showing        
         for key in self.final_condition.keys():
@@ -55,8 +55,36 @@ class Result(customtkinter.CTkFrame):
             strict=strict,
         )
         self.textbox.delete("0.0", "end")
-        try:
+        """ try:
+            # available_courses = res[["課程中文名稱", "教室與上課時間"]].apply("\n  - ".join, axis=1).str.cat(sep="\n")
             available_courses = res["課程中文名稱"].str.cat(sep="\n")
         except:
+            available_courses = "No courses available." """
+        try:
+            available_courses = ""
+            CourseIDList = list(res["科號"])
+            NameList = list(res["課程中文名稱"])
+
+            tmp = []
+            for item in list(res["教室與上課時間"]):
+                tmp.append(item.split('\n')[0])
+            TimeList = []
+            for item in tmp:
+                if len(item.split('\t')) > 1:
+                    TimeList.append(item.split('\t')[1])
+                else:
+                    TimeList.append('')
+
+            tmp = [item.split('\n')[0] for item in list(res["教室與上課時間"])]
+            LocList = [item.split('\t')[0] for item in tmp]
+
+            tmp = [item.split('\n')[0] for item in list(res["授課教師"])]
+            TeacherList = [item.split('\t')[0] for item in tmp]
+
+            for t,n, cid, tch, loc in zip(TimeList, NameList, CourseIDList, TeacherList, LocList, strict=True):
+                available_courses += f'{cid}\n{n} {tch}\n{t} {loc}\n\n'
+
+        except Exception as e:
             available_courses = "No courses available."
+            
         self.textbox.insert("0.0", available_courses)
