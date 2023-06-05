@@ -30,8 +30,11 @@ class LeftSideBar(customtkinter.CTkFrame):
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(0,10))
 
         # set default
-        self.appearance_mode_optionemenu.set("Dark")
+        self.appearance_mode_optionemenu.set("System")
         self.scaling_optionemenu.set("100%")
+
+        # tracking the master widget for scaling
+        self.mother_widget = master
     
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -39,4 +42,6 @@ class LeftSideBar(customtkinter.CTkFrame):
     
     def change_scaling_event(self, new_scaling: str):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        self.mother_widget.geometry(f"{int(1300 * new_scaling_float)}x{int(700 * new_scaling_float)}")
         customtkinter.set_widget_scaling(new_scaling_float)
+        

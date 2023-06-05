@@ -35,7 +35,8 @@ class Tabview(customtkinter.CTkFrame):
         self.label_department.grid(row=0, column=0, padx=10, pady=10)
         self.department_combobox = customtkinter.CTkOptionMenu(self.tabview.tab("department"),
                                                             values=self.AllDep,
-                                                            command=self.setDepartment)
+                                                            command=self.setDepartment,
+                                                            dynamic_resizing=False)
         self.department_combobox.grid(row=1, column=0, padx=10, pady=(10, 10))
 
         # searching UI: location
@@ -44,7 +45,8 @@ class Tabview(customtkinter.CTkFrame):
         self.label_location.grid(row=0, column=0, padx=10, pady=10)
         self.location_combobox = customtkinter.CTkOptionMenu(self.tabview.tab("location"),
                                                     values=self.AllLoc,
-                                                    command=self.setLoc )
+                                                    command=self.setLoc,
+                                                    dynamic_resizing=False)
         self.location_combobox.grid(row=1, column=0, padx=10, pady=(10, 10))
 
         # searching UI: Time
