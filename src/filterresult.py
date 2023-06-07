@@ -1,14 +1,12 @@
 import customtkinter
-from checkboxfilter import CheckBoxFilter
-import pandas as pd
 import copy
-import final
+import src.final as final
 
 
 class Result(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
-        self.final_condition = {"time":[], "loc":[], "dep":[]}
+        self.final_condition = {"time": [], "loc": [], "dep": []}
         self.final_checkbox = {"cid": False, "loc": False, "tch": False, "t": False}
         # customtkinter.CTkTextbox(master=self, width=250)
         self.frame = customtkinter.CTkFrame(self, corner_radius=0)
@@ -34,21 +32,23 @@ class Result(customtkinter.CTkFrame):
             sticky="nsew",
         )
         self.textbox.insert("0.0", "No courses available.")
-    
-    def rm_null_key(self, raw_condition) -> dict:
-        ''' Remove all keys with value: empty list, making the select function work correctly '''
 
-        for key,val in raw_condition.copy().items():
-            if val==[] or val==['']:
+    def rm_null_key(self, raw_condition) -> dict:
+        """Remove all keys with value: empty list, making the select function work correctly"""
+
+        for key, val in raw_condition.copy().items():
+            if val == [] or val == [""]:
                 raw_condition.pop(key)
         return raw_condition
 
-    def change_filtered_result(self, filtered_result=None, checkbox_filter = None, strict=False) -> None:
+    def change_filtered_result(
+        self, filtered_result=None, checkbox_filter=None, strict=False
+    ) -> None:
         if filtered_result == None:
             filtered_result = self.final_condition
         if checkbox_filter == None:
             checkbox_filter = self.final_checkbox
-        # TODO: complete showing        
+        # TODO: complete showing
         for key in self.final_condition.keys():
             try:
                 self.final_condition[key] = filtered_result[key]
@@ -78,27 +78,33 @@ class Result(customtkinter.CTkFrame):
 
             tmp = []
             for item in list(res["教室與上課時間"]):
-                tmp.append(item.split('\n')[0])
+                tmp.append(item.split("\n")[0])
             TimeList = []
             for item in tmp:
-                if len(item.split('\t')) > 1:
-                    TimeList.append(item.split('\t')[1])
+                if len(item.split("\t")) > 1:
+                    TimeList.append(item.split("\t")[1])
                 else:
-                    TimeList.append('')
+                    TimeList.append("")
 
-            tmp = [item.split('\n')[0] for item in list(res["教室與上課時間"])]
-            LocList = [item.split('\t')[0] for item in tmp]
+            tmp = [item.split("\n")[0] for item in list(res["教室與上課時間"])]
+            LocList = [item.split("\t")[0] for item in tmp]
 
-            tmp = [item.split('\n')[0] for item in list(res["授課教師"])]
-            TeacherList = [item.split('\t')[0] for item in tmp]
+            tmp = [item.split("\n")[0] for item in list(res["授課教師"])]
+            TeacherList = [item.split("\t")[0] for item in tmp]
 
-            for t,name, cid, tch, loc in zip(TimeList, NameList, CourseIDList, TeacherList, LocList, strict=True):
-                available_courses += \
-                                    f'{cid if self.final_checkbox["cid"] else ""}' + '\n' + \
-                                    f'{name} {tch if self.final_checkbox["tch"] else ""}' + '\n'+\
-                                    f'{t if self.final_checkbox["t"] else ""}' + \
-                                    f'{loc if self.final_checkbox["loc"] else ""}' + '\n\n'
+            for t, name, cid, tch, loc in zip(
+                TimeList, NameList, CourseIDList, TeacherList, LocList, strict=True
+            ):
+                available_courses += (
+                    f'{cid if self.final_checkbox["cid"] else ""}'
+                    + "\n"
+                    + f'{name} {tch if self.final_checkbox["tch"] else ""}'
+                    + "\n"
+                    + f'{t if self.final_checkbox["t"] else ""}'
+                    + f'{loc if self.final_checkbox["loc"] else ""}'
+                    + "\n\n"
+                )
         except Exception as e:
             available_courses = "No courses available."
-            
+
         self.textbox.insert("0.0", available_courses)

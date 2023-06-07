@@ -1,6 +1,5 @@
 import customtkinter
 from functools import partial
-from filterresult import Result
 
 
 class TimeSlot(customtkinter.CTkFrame):
@@ -56,8 +55,8 @@ class TimeSlot(customtkinter.CTkFrame):
 
         # (pending discussion) color
         general_border_color = "gray"
-        noon_border_color = "#f0f100"
-        abc_border_color = "#02dafd"
+        noon_border_color = "#CBBE01"
+        abc_border_color = "#2986CC"
         button_hover_color = "#AAFEC2"
 
         self.button_instances = [[None] * 13 for _ in range(5)]
