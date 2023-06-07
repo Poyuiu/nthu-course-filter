@@ -7,16 +7,32 @@ This is a GUI app based on custom tkinter, which uses web crawler to obtain the 
 
 ## Usage
 
-[Python>=3.8](https://www.python.org/) should be available on your system.
+[Python>=3.11](https://www.python.org/) should be available on your system.
 Open CMD(Windows) or Terminal(MacOS) and paste below consoles under preferable directory.
 
 ```console
 git clone https://github.com/jmyapple9/nthu-course-filter.git
 cd nthu-course-filter
 pip3 install -r requirements.txt
+```
+
+#### Run the app (all OS) 
+> If you use anaconda, replace them with your own commands.
+```console
+python3 main.py
+```
+
+#### (Unix-base system)
+``` console
 ./main.py
 ```
 
+> **Warning**
+> Display scaling on Windows may lead to layout broken.
+>
+> So don't upscale the display [over 100% on Windows](https://github.com/jmyapple9/nthu-course-filter/issues/3)
+
+---
 
 ## Possible interface you may see:
 
