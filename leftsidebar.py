@@ -13,7 +13,7 @@ class LeftSideBar(customtkinter.CTkFrame):
 
         # result filter
         self.result_filter = CheckBoxFilter(master = self, result_frame=result_frame)
-        self.result_filter.grid(row=1, column=0, pady=0, sticky='n')
+        self.result_filter.grid(row=1, column=0, pady=0, sticky='nsew')
 
         # appearance mode
         self.appearance_mode_label = customtkinter.CTkLabel(master = self, text="Appearance Mode:", anchor="w")

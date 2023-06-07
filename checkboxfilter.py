@@ -6,10 +6,10 @@ class CheckBoxFilter(customtkinter.CTkFrame):
         self.result_frame = result_frame
 
         self.checkbox_slider_frame = customtkinter.CTkFrame(self, width=200)
-        self.checkbox_slider_frame.grid(row=0, column=0, rowspan=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
+        self.checkbox_slider_frame.grid(row=0, column=0, padx=(20, 20), pady=(20, 20), sticky="n")
         
         # checkbox lebel
-        self.label_filter = customtkinter.CTkLabel(self.checkbox_slider_frame, text="Result filter")
+        self.label_filter = customtkinter.CTkLabel(self.checkbox_slider_frame, text="Result filter", font=("Arial", 18))
         self.label_filter.grid(row=0, column=0, sticky="nsew")
         
         # checkbox options

@@ -16,7 +16,7 @@ class Result(customtkinter.CTkFrame):
 
         # result area lebel
         self.result_label = customtkinter.CTkLabel(
-            master=self.frame, text="Courses available"
+            master=self.frame, text="Courses available", font=("Arial", 24)
         )
         self.result_label.grid(row=0, column=0, pady=20, padx=20)
         # result textbox

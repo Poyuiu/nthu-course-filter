@@ -17,21 +17,21 @@ class Tabview(customtkinter.CTkFrame):
         self.AllDep.insert(0, "")
 
         # create tabview
-        self.tabview = customtkinter.CTkTabview(self, width=200)
+        self.tabview = customtkinter.CTkTabview(self, width=250)
         self.tabview.grid(row=0, column=0, rowspan=2, padx=10, pady=10, sticky='n')
 
         # 3 search tabs (text)
         self.tabview.add("department")
         self.tabview.add("location")
-        self.tabview.add("Time")
+        # self.tabview.add("Time")
         # object position
         self.tabview.tab("department").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
         self.tabview.tab("location").grid_columnconfigure(0, weight=1)
-        self.tabview.tab("Time").grid_columnconfigure(0, weight=1)
+        # self.tabview.tab("Time").grid_columnconfigure(0, weight=1)
 
         # searching UI: department
         self.label_department = customtkinter.CTkLabel(self.tabview.tab("department"), 
-                                                    text="Choose department below")
+                                                    text="Choose department below", font=("Arial", 18))
         self.label_department.grid(row=0, column=0, padx=10, pady=10)
         self.department_combobox = customtkinter.CTkOptionMenu(self.tabview.tab("department"),
                                                             values=self.AllDep,
@@ -41,7 +41,7 @@ class Tabview(customtkinter.CTkFrame):
 
         # searching UI: location
         self.label_location = customtkinter.CTkLabel(self.tabview.tab("location"), 
-                                                    text="Choose location below" )
+                                                    text="Choose location below", font=("Arial",18) )
         self.label_location.grid(row=0, column=0, padx=10, pady=10)
         self.location_combobox = customtkinter.CTkOptionMenu(self.tabview.tab("location"),
                                                     values=self.AllLoc,
@@ -50,9 +50,9 @@ class Tabview(customtkinter.CTkFrame):
         self.location_combobox.grid(row=1, column=0, padx=10, pady=(10, 10))
 
         # searching UI: Time
-        self.label_time = customtkinter.CTkLabel(self.tabview.tab("Time"), 
-                                                text="Choose Time on RHS")
-        self.label_time.grid(row=0, column=0, padx=10, pady=10)
+        # self.label_time = customtkinter.CTkLabel(self.tabview.tab("Time"), 
+        #                                         text="Choose Time on RHS")
+        # self.label_time.grid(row=0, column=0, padx=10, pady=10)
         
         # search button
         # self.search_button = customtkinter.CTkButton(self.tabview, 
