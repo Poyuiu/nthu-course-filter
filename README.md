@@ -7,6 +7,19 @@ This is a GUI app based on custom tkinter, which uses web crawler to obtain the 
 
 ## Usage
 
+There are two different methods available for running this app, each with its own distinct benefits. The first method is relatively easier to use, whereas the second method allows for faster app updates using git pull.
+A more detailed explanation of these methods are following:
+### Running the executable file (exe)
+To run the NTHU Course Filter, follow these steps:
+
+1. Download the ==NTHU Course Filter== folder directly.
+2. Place the folder anywhere you prefer (e.g., C:\Users\User\AppData\Local\NTHU Course Filter).
+3. Locate the NTHU Course Filter.exe file within the folder, right-click on it, and select "Create Shortcut."
+4. Rename the shortcut to your desired name (e.g., NTHU Course Filter).
+5. Drag the shortcut to your desktop.
+
+By following these steps, you will be able to easily access and run the NTHU Course Filter app.
+### Run python code
 [Python>=3.11](https://www.python.org/) should be available on your system.
 Open CMD(Windows) or Terminal(MacOS) and paste below consoles under preferable directory.
 
