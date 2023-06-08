@@ -12,7 +12,7 @@ A more detailed explanation of these methods are following:
 ### Running the executable file (exe)
 To run the NTHU Course Filter, follow these steps:
 
-1. Download the ==NTHU Course Filter== folder directly.
+1. Download the **NTHU Course Filter** folder directly.
 2. Place the folder anywhere you prefer (e.g., C:\Users\User\AppData\Local\NTHU Course Filter).
 3. Locate the NTHU Course Filter.exe file within the folder, right-click on it, and select "Create Shortcut."
 4. Rename the shortcut to your desired name (e.g., NTHU Course Filter).
